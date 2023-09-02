@@ -5,10 +5,7 @@
 </head>
 <body>
     <h1>SwyftDoc</h1>
-    <form action="/upload_document" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
+    <a href="{% url 'upload_document' %}" class="btn btn-primary">Upload Document</a>
+
 </body>
 </html>
