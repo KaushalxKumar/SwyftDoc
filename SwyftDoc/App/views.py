@@ -5,15 +5,16 @@ from PyPDF2 import PdfReader
 
 import hashlib
 from cryptography.hazmat.primitives.asymmetric import ed25519
-from cryptography.hazmat.primitives import hashes
+
+from Interactions import certify, verify
 
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
 
-def upload_document(request):
+def certify_document(request):
     if request.method == 'GET':
-        return render(request, 'upload_document.html')
+        return render(request, 'certify_document.html')
 
     if request.method == 'POST' and request.FILES.get('file'):
         uploaded_file = request.FILES['file']
@@ -45,8 +46,11 @@ def upload_document(request):
         # Sign the hashed text with the private key
         signature = private_key.sign(hashed_text)
 
-        other_hash = hashed_text  # Replace with the hash of the other document
+        # Store on the blockchain
+        certify.certify_document(signature, public_key.public_bytes_raw(), hashed_text)
 
+        # TEST DELETE LATER
+        other_hash = hashed_text  # Replace with the hash of the other document
         try:
             public_key.verify(signature, other_hash)
             verification_result = 'Signature verified: Hashes match.'
@@ -54,4 +58,7 @@ def upload_document(request):
             verification_result = 'Signature verification failed: Hashes do not match.'
 
         return HttpResponse(f'Signature: {signature.hex()}\nVerification Result: {verification_result}')
+
+
+
 

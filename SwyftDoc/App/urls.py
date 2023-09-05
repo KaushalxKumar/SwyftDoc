@@ -3,5 +3,5 @@ from App.views import *
 
 urlpatterns = [
     path('', index),
-    path('upload_document', upload_document, name='upload_document')
+    path('certify_document', certify_document, name='certify_document')
 ]
