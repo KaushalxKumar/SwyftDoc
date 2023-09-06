@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Upload PDF Document to Certify</title>
+    <title>Upload PDF Document to Verify</title>
 </head>
 <body>
-    <h1>SwyftDoc Certification</h1>
-    <form action="/certify_document" method="post" enctype="multipart/form-data">
+    <h1>SwyftDoc Verification</h1>
+    <form action="/verify_document" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="file">
         <input type="submit" value="Upload">
