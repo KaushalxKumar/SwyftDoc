@@ -1,14 +1,39 @@
-from django.shortcuts import render
+# Django
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth import login
 
+from App.forms import CreateUserForm
+
+# Cryptography & PyPDF2
 from PyPDF2 import PdfReader
-
 import hashlib
 from cryptography.hazmat.primitives.asymmetric import ed25519
-
 from Interactions import certify, verify
 
 # Create your views here.
+def login_user(request):
+    return render(request, 'login.html')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            print("Account Created")
+            return redirect('index')
+        else:
+            # Form has errors
+            print(form.errors)
+
+    else:
+        form = CreateUserForm()
+
+    context = {'form': form}
+    return render(request, 'register.html', context)
+
 def index(request):
     return render(request, 'index.html')
 
