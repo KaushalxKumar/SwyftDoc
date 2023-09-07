@@ -1,7 +1,8 @@
 # Django
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 from App.forms import CreateUserForm
 
@@ -13,7 +14,20 @@ from Interactions import certify, verify
 
 # Create your views here.
 def login_user(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            print("Error")
+
+    context = {}
+    return render(request, 'login.html', context)
 
 def register_user(request):
     if request.method == 'POST':
@@ -34,9 +48,15 @@ def register_user(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+@login_required(login_url='login')
 def index(request):
     return render(request, 'index.html')
 
+@login_required(login_url='login')
 def certify_document(request):
     if request.method == 'GET':
         return render(request, 'certify_document.html')
@@ -76,6 +96,7 @@ def certify_document(request):
 
         return HttpResponse('Document Certified')
 
+@login_required(login_url='login')
 def verify_document(request):
     if request.method == 'GET':
         return render(request, 'verify_document.html')

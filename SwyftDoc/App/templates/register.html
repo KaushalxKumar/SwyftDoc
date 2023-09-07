@@ -5,14 +5,17 @@
     <title>Register</title>
 </head>
 <body>
-<form method="POST" action="" >
-    {% csrf_token %}
-    {% for field in form %}
-        {{field.label}}
-        {{field}}
-    {% endfor %}
-    <button type="submit">Register</button>
-</form>
+
+    <form method="POST" action="" >
+        {% csrf_token %}
+        {% for field in form %}
+            {{field.label}}
+            {{field}}
+        {% endfor %}
+        <button type="submit">Register</button>
+    </form>
+
+    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
 
 </body>
 </html>

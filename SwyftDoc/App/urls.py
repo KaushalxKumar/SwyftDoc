@@ -7,5 +7,5 @@ urlpatterns = [
     path('verify_document', verify_document, name='verify_document'),
     path('login', login_user, name='login'),
     path('register', register_user, name='register'),
-
+    path('logout', logout_user, name='logout'),
 ]

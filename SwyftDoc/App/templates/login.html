@@ -6,5 +6,13 @@
 </head>
 <body>
 
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username...">
+        <input type="password" name="password" placeholder="Password...">
+        <input class="btn login_btn" type="submit" value="Login">
+        <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+    </form>
+
 </body>
 </html>
