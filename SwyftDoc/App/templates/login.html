@@ -1,18 +1,91 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <form method="POST" action="">#}
+{#        {% csrf_token %}#}
+{#        <input type="text" name="username" placeholder="Username...">#}
+{#        <input type="password" name="password" placeholder="Password...">#}
+{#        <input class="btn login_btn" type="submit" value="Login">#}
+{#        <a href="{% url 'register' %}" class="btn btn-primary">Register</a>#}
+{#    </form>#}
+{##}
+{#</body>#}
+{#</html>#}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .login_btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .login_btn:hover {
+            background-color: #0056b3;
+        }
+
+        .register_btn {
+            display: block;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 3px;
+        }
+
+        .register_btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-
     <form method="POST" action="">
         {% csrf_token %}
         <input type="text" name="username" placeholder="Username...">
         <input type="password" name="password" placeholder="Password...">
         <input class="btn login_btn" type="submit" value="Login">
-        <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+        <a href="{% url 'register' %}" class="register_btn">Register</a>
     </form>
-
 </body>
 </html>

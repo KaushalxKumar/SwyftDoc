@@ -84,17 +84,22 @@ def certify_document(request):
         sha256_hash.update(text.encode('utf-8'))
         hashed_text = sha256_hash.digest()
 
-        # Generate a private key and corresponding public key
-        private_key = ed25519.Ed25519PrivateKey.generate()
-        public_key = private_key.public_key().public_bytes_raw()
+        # Retrieve users private key and public key
+        user = request.user
+        private_key = user.get_private_key()
+        public_key = user.get_public_key()
 
         # Sign the hashed text with the private key
         signature = private_key.sign(hashed_text)
 
         # Store on the blockchain
-        certify.certify_document(signature, public_key, hashed_text)
+        try:
+            certify.certify_document(signature, public_key.public_bytes_raw(), hashed_text)
+            response = 'Document Certified by ' + user.username
+        except Exception as e:
+            response = 'Certification Error'
 
-        return HttpResponse('Document Certified')
+        return HttpResponse(response)
 
 @login_required(login_url='login')
 def verify_document(request):
@@ -125,7 +130,11 @@ def verify_document(request):
         hashed_text = sha256_hash.digest()
 
         # Retrieve from blockchain
-        owner, signature, public_key = verify.verify_document(hashed_text)
+        try:
+            owner, signature, public_key = verify.verify_document(hashed_text)
+
+        except Exception as e:
+            return HttpResponse('Verification Error')
 
         public_key = ed25519.Ed25519PublicKey.from_public_bytes(public_key)
 
