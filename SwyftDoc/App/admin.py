@@ -12,10 +12,11 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         *UserAdmin.fieldsets,
         (
-            'User Role',
+            'Attributes',
             {
                 'fields': (
                     'verified',
+                    'token',
                 )
             }
         )

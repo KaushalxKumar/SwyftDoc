@@ -3,13 +3,16 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-
+from django.core.mail import send_mail
+from django.urls import reverse
+from urllib.parse import urljoin
 from App.forms import CreateUserForm
 
 # Cryptography & PyPDF2
 from PyPDF2 import PdfReader
 import hashlib
 from cryptography.hazmat.primitives.asymmetric import ed25519
+
 from Interactions import certify, verify
 
 # Create your views here.
@@ -38,6 +41,7 @@ def register_user(request):
             login(request, user)
             print("Account Created")
             return redirect('index')
+
         else:
             # Form has errors
             print(form.errors)
@@ -55,6 +59,35 @@ def logout_user(request):
 @login_required(login_url='login')
 def index(request):
     return render(request, 'index.html')
+
+@login_required(login_url='login')
+def send_verify_email(request):
+    user = request.user
+    email = user.email
+    token = user.token
+
+    url = reverse('verify_email', kwargs={'token': token})
+    email_url = urljoin('http://127.0.0.1:8000', url)
+
+    send_mail(
+        'SwyftDoc Email Verification',
+        f'Your account verification token is {email_url}',
+        'kkum9480@uni.sydney.edu.au',
+        [email],
+    )
+    print("Email Sent " + email)
+
+    return HttpResponse("Email Sent to: " + email + " Token: " + token)
+
+@login_required(login_url='login')
+def verify_email(request, token):
+    # Check if the token is valid.
+    if request.user.token == token:
+        request.user.verified = True
+        request.user.save()
+        return render(request, 'email_verification_success.html')
+
+    return render(request, 'email_verification_failed.html')
 
 @login_required(login_url='login')
 def certify_document(request):

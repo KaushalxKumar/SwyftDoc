@@ -5,6 +5,8 @@ from cryptography.hazmat.primitives.asymmetric import ed25519
 from cryptography.hazmat.primitives import serialization
 from cryptography.exceptions import UnsupportedAlgorithm
 
+import string
+import random
 
 def generate_key_pair():
     # Generate a new Ed25519 key pair
@@ -24,11 +26,16 @@ def generate_key_pair():
 
     return private_key_bytes, public_key_bytes
 
+def generate_email_verification_token():
+    characters = string.ascii_lowercase + string.digits
+    token = ''.join(random.choice(characters) for _ in range(32))
+    return token
 
 class Person(AbstractUser):
     verified = models.BooleanField(default=False)
     public_key = models.BinaryField(null=True, blank=True)
     private_key = models.BinaryField(null=True, blank=True)
+    token = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.username
@@ -38,6 +45,10 @@ class Person(AbstractUser):
             private_key, public_key = generate_key_pair()
             self.private_key = private_key
             self.public_key = public_key
+
+        if not self.token:
+            token = generate_email_verification_token()
+            self.token = token
 
         super().save(*args, **kwargs)
 
@@ -56,3 +67,4 @@ class Person(AbstractUser):
             except UnsupportedAlgorithm:
                 return None
         return None
+
