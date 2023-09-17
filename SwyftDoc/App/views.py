@@ -6,14 +6,18 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.urls import reverse
 from urllib.parse import urljoin
+
 from App.forms import CreateUserForm
+from App.models import Person
 
 # Cryptography & PyPDF2
 from PyPDF2 import PdfReader
 import hashlib
 from cryptography.hazmat.primitives.asymmetric import ed25519
+from cryptography.hazmat.primitives import serialization
 
 from Interactions import certify, verify
+
 
 # Create your views here.
 def login_user(request):
@@ -31,6 +35,7 @@ def login_user(request):
 
     context = {}
     return render(request, 'login.html', context)
+
 
 def register_user(request):
     if request.method == 'POST':
@@ -52,13 +57,16 @@ def register_user(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
+
 def logout_user(request):
     logout(request)
     return redirect('login')
 
+
 @login_required(login_url='login')
 def index(request):
     return render(request, 'index.html')
+
 
 @login_required(login_url='login')
 def send_verify_email(request):
@@ -79,6 +87,7 @@ def send_verify_email(request):
 
     return HttpResponse("Email Sent to: " + email + " Token: " + token)
 
+
 @login_required(login_url='login')
 def verify_email(request, token):
     # Check if the token is valid.
@@ -88,6 +97,7 @@ def verify_email(request, token):
         return render(request, 'email_verification_success.html')
 
     return render(request, 'email_verification_failed.html')
+
 
 @login_required(login_url='login')
 def certify_document(request):
@@ -134,6 +144,7 @@ def certify_document(request):
 
         return HttpResponse(response)
 
+
 @login_required(login_url='login')
 def verify_document(request):
     if request.method == 'GET':
@@ -177,4 +188,12 @@ def verify_document(request):
         except Exception as e:
             verification_result = 'Signature verification failed: Hashes do not match.'
 
-        return HttpResponse(f'Signature: {signature.hex()}\nVerification Result: {verification_result}')
+        # Retrieve Certifier
+        public_key_bytes = public_key.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
+        certifier = Person.objects.get(public_key=public_key_bytes)
+
+
+        return HttpResponse(f'Verification Result: {verification_result}\n Ceritfier: {certifier}\n Verified: {certifier.verified}')
