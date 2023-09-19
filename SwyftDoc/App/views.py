@@ -9,6 +9,7 @@ from urllib.parse import urljoin
 
 from App.forms import CreateUserForm
 from App.models import Person
+from credentials import BASE_URL, FROM_EMAIL
 
 # Cryptography & PyPDF2
 from PyPDF2 import PdfReader
@@ -18,8 +19,10 @@ from cryptography.hazmat.primitives import serialization
 
 from Interactions import certify, verify
 
-
 # Create your views here.
+"""
+    Function to login user 
+"""
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -37,6 +40,9 @@ def login_user(request):
     return render(request, 'login.html', context)
 
 
+"""
+    Function to register user 
+"""
 def register_user(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -44,7 +50,7 @@ def register_user(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            print("Account Created")
+
             return redirect('index')
 
         else:
@@ -58,16 +64,17 @@ def register_user(request):
     return render(request, 'register.html', context)
 
 
+"""
+    Function to logout user
+"""
 def logout_user(request):
     logout(request)
     return redirect('login')
 
 
-@login_required(login_url='login')
-def index(request):
-    return render(request, 'index.html')
-
-
+"""
+    Function to send verification email 
+"""
 @login_required(login_url='login')
 def send_verify_email(request):
     user = request.user
@@ -75,12 +82,12 @@ def send_verify_email(request):
     token = user.token
 
     url = reverse('verify_email', kwargs={'token': token})
-    email_url = urljoin('http://127.0.0.1:8000', url)
+    email_url = urljoin(BASE_URL, url)
 
     send_mail(
         'SwyftDoc Email Verification',
         f'Your account verification token is {email_url}',
-        'kkum9480@uni.sydney.edu.au',
+        FROM_EMAIL,
         [email],
     )
     print("Email Sent " + email)
@@ -88,6 +95,9 @@ def send_verify_email(request):
     return HttpResponse("Email Sent to: " + email + " Token: " + token)
 
 
+"""
+    Function to validate verification  
+"""
 @login_required(login_url='login')
 def verify_email(request, token):
     # Check if the token is valid.
@@ -99,6 +109,66 @@ def verify_email(request, token):
     return render(request, 'email_verification_failed.html')
 
 
+"""
+    Function to send reset password link  
+"""
+def forgot_password(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+
+        try:
+            user = Person.objects.get(email=email)
+
+        except Exception as e:
+            return HttpResponse("Email is not linked to a valid account")
+
+        token = user.token
+        url = reverse('reset_password', kwargs={'token': token})
+        email_url = urljoin(BASE_URL, url)
+
+        send_mail(
+            'SwyftDoc Password Reset',
+            f'Click here to reset your password {email_url}',
+            FROM_EMAIL,
+            [email],
+        )
+
+        return HttpResponse("Password Reset Email Sent")
+
+    return render(request, 'forgot_password.html')
+
+
+"""
+    Function to reset password
+"""
+def reset_password(request, token):
+    if request.method == "POST":
+        user = Person.objects.get(token=token)
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 != password2:
+            # TO DO: Display Error Message
+            pass
+
+        user.set_password(password1)
+        user.save()
+        return render(request, 'password_reset_success.html')
+
+    return render(request, 'reset_password.html')
+
+
+"""
+    Function to display homepage  
+"""
+@login_required(login_url='login')
+def index(request):
+    return render(request, 'index.html')
+
+
+"""
+    Function to certify document 
+"""
 @login_required(login_url='login')
 def certify_document(request):
     if request.method == 'GET':
@@ -145,6 +215,9 @@ def certify_document(request):
         return HttpResponse(response)
 
 
+"""
+    Function to verify document 
+"""
 @login_required(login_url='login')
 def verify_document(request):
     if request.method == 'GET':
@@ -194,6 +267,5 @@ def verify_document(request):
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
         certifier = Person.objects.get(public_key=public_key_bytes)
-
 
         return HttpResponse(f'Verification Result: {verification_result}\n Ceritfier: {certifier}\n Verified: {certifier.verified}')

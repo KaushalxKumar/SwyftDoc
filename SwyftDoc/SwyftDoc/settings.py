@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from credentials import SENDGRID_API_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -126,7 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email Configurations
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = SENDGRID_API_KEY
 
 
 
