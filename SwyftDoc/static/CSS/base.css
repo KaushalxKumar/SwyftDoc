@@ -1,9 +1,12 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #5228F5;
 }
 
+#bg{
+    background-size: cover;
+    background-attachment: fixed;
+}
 /* Style the header and container */
 header {
     padding: 40px 0;

@@ -1,10 +1,35 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block css %}
+    rel="stylesheet" type="text/css" href="{% static 'CSS/index.css' %}"
+{% endblock %}
+
 {% block title %}
     SwyftDoc
 {% endblock %}
 
 {% block content %}
-    <h2>Welcome to the Home Page</h2>
-    <p>This is the home page of my website.</p>
+    <div class="container-index">
+        <h1><a href="{% url 'certify_document' %}" class="custom-link">Certification</a> & <a href="{% url 'verify_document' %}" class="custom-link">Verification</a> Simplified</h1>
+        <div class="grid">
+            <div class="block">
+                <h2>Blockchain Revolution</h2>
+                <p>Harness the power of blockchain technology to secure and verify your certifications like never before. Say goodbye to counterfeit and welcome the era of trust and transparency.</p>
+            </div>
+            <div class="block">
+                <h2>Enhanced Security</h2>
+                <p>Rest easy knowing that your certifications are protected against the most advanced threats, even from quantum computers. Our cutting-edge encryption ensures your data remains secure for generations to come.</p>
+            </div>
+            <div class="block">
+                <h2>Your Data, Your Control</h2>
+                <p>Take control of your certifications with tools that put you in charge. Easily ensure your data remains in your hands.</p>
+            </div>
+            <div class="block">
+                <h2>Future of Certification</h2>
+                <p>Experience the next evolution in certification technology. Use SwyftDoc and be part of a quantum-resistant, blockchain-powered future.</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
