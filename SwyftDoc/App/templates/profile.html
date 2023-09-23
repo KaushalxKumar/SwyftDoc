@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% include 'nav_bar.html' %}
+
+    <h1>Email Verification</h1>
+    <p>Please click the following link to verify your email:</p>
+    <p>
+        <a href="{% url 'send_verify_email' %}" class="btn btn-primary">Verify Email</a>
+    </p>
+
+</body>
+</html>

@@ -157,6 +157,12 @@ def reset_password(request, token):
 
     return render(request, 'reset_password.html')
 
+"""
+    Function to display profile  
+"""
+def profile(request):
+    return render(request, 'profile.html')
+
 
 """
     Function to display homepage  
