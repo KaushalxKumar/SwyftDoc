@@ -14,17 +14,17 @@
         <div class="container">
             <div class="navbar">
                 <div class="left-side">
-                    <a href="{% url 'index' %}">
-                        <img src="{% static 'Images/logo.png' %}" alt="Logo">
+                    <a href="{% url 'index' %}" class="logo">
+                        <img src="{% static 'Images/logo3.png' %}" alt="Logo">
                     </a>
                     <a href="{% url 'certify_document' %}" class="certify">Certify</a>
                     <a href="{% url 'verify_document' %}" class="verify">Verify</a>
                 </div>
                 <div class="right-side">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}" class="sign-in">Logout</a>
+                        <a href="{% url 'logout' %}" class="account">Logout</a>
                     {% else %}
-                        <a href="{% url 'login' %}" class="sign-in">Sign In</a>
+                        <a href="{% url 'login' %}" class="account">Login</a>
                     {% endif %}
                     <div class="profile">
                         <a href="{% url 'profile' %}" class="profile-link">Profile</a>
