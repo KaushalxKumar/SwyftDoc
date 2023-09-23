@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Swyftdoc</title>
-</head>
-{##5228F5 backgroudnd colour#}
-<body>
-    {% include 'nav_bar.html' %}
+{% extends "base.html" %}
 
+{% block title %}
+    SwyftDoc
+{% endblock %}
 
-</body>
-
-</html>
+{% block content %}
+    <h2>Welcome to the Home Page</h2>
+    <p>This is the home page of my website.</p>
+{% endblock %}

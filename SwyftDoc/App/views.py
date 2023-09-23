@@ -160,6 +160,7 @@ def reset_password(request, token):
 """
     Function to display profile  
 """
+@login_required(login_url='login')
 def profile(request):
     return render(request, 'profile.html')
 

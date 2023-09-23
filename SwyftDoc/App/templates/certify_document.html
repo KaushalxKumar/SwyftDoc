@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Upload PDF Document to Certify</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+    Certify
+{% endblock %}
+
+{% block content %}
     <h1>SwyftDoc Certification</h1>
     <form action="/certify_document" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="file">
         <input type="submit" value="Upload">
     </form>
-</body>
-</html>
+{% endblock %}

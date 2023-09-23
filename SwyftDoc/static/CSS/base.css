@@ -1,20 +1,21 @@
-/* Reset some default styles for the page */
 body {
-    margin: 0; /* Remove margin */
+    margin: 0;
     padding: 0;
+    background-color: #5228F5;
 }
 
 /* Style the header and container */
 header {
-    background-color: #333;
-    padding: 10px 0;
+    /*background-color: #333;*/
+    padding: 40px 0;
     width: 100%;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    border-radius: 20px; /* Rounded edges for the entire container */
+    border-radius: 50px;
+    background-color: #333;
 }
 
 /* Style the navbar */
@@ -59,11 +60,6 @@ header {
     margin-right: 20px;
 }
 
-.profile-link {
-    text-decoration: none;
-    color: #333;
-}
-
 .sign-in {
     text-decoration: none;
     color: #fff; /* Set "Sign In" link to white */
@@ -85,6 +81,5 @@ header {
 .verify:hover,
 .profile-link:hover,
 .sign-in:hover {
-    /*color: #ff4500; !* Change the color on hover *!*/
     color: #5228F5;
 }
