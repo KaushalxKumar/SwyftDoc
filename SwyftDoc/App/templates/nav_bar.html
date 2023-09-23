@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/nav_bar.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="left-side">
+                    <img src="{% static 'Images/logo.png' %}" alt="Logo">
+                    <a href="{% url 'certify_document' %}" class="certify">Certify</a>
+                    <a href="{% url 'verify_document' %}" class="verify">Verify</a>
+                </div>
+                <div class="right-side">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="sign-in">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="sign-in">Sign In</a>
+                    {% endif %}
+                    <div class="profile">
+                        <a href="#" class="profile-link">Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

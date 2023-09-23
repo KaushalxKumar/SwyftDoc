@@ -69,7 +69,7 @@ def register_user(request):
 """
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('index')
 
 
 """
@@ -161,7 +161,6 @@ def reset_password(request, token):
 """
     Function to display homepage  
 """
-@login_required(login_url='login')
 def index(request):
     return render(request, 'index.html')
 

@@ -1,0 +1,90 @@
+/* Reset some default styles for the page */
+body {
+    margin: 0; /* Remove margin */
+    padding: 0;
+}
+
+/* Style the header and container */
+header {
+    background-color: #333;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 20px; /* Rounded edges for the entire container */
+}
+
+/* Style the navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Style the left-side elements */
+.left-side {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 20px;
+}
+
+.certify,
+.verify {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+}
+
+/* Style the right-side elements */
+.right-side {
+    display: flex;
+    align-items: center;
+}
+
+.profile {
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 15px; /* Rounded rectangle for the profile section */
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.profile-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.sign-in {
+    text-decoration: none;
+    color: #fff; /* Set "Sign In" link to white */
+    margin-right: 10px;
+}
+
+/* Center the "Profile" link within its smaller rounded rectangle */
+.profile-link {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Hover effect for links */
+.certify:hover,
+.verify:hover,
+.profile-link:hover,
+.sign-in:hover {
+    /*color: #ff4500; !* Change the color on hover *!*/
+    color: #5228F5;
+}

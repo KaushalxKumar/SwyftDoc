@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Upload PDF Document</title>
+    <title>Swyftdoc</title>
 </head>
+{##5228F5 backgroudnd colour#}
 <body>
+
+    {% include 'nav_bar.html' %}
+
     <h1>SwyftDoc</h1>
     <a href="{% url 'certify_document' %}" class="btn btn-primary">Certify Document</a>
     <a href="{% url 'verify_document' %}" class="btn btn-primary">Verify Document</a>
     <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
-
 
 
     <h3>Email Verification</h3>
@@ -17,4 +20,5 @@
         <a href="{% url 'send_verify_email' %}" class="btn btn-primary">Verify Email</a>
     </p>
 </body>
+
 </html>
