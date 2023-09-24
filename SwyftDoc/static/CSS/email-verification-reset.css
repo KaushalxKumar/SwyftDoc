@@ -3,7 +3,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 80vh;
     margin-top: 0;
 }
 
@@ -13,7 +13,7 @@ body {
     padding: 20px;
     text-align: center;
     width: 400px;
-    height: 250px;
+    height: 450px;
     margin: 0 auto;
 }
 .logo img {

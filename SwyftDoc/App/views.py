@@ -155,7 +155,7 @@ def reset_password(request, token):
         user.save()
         return render(request, 'password_reset_success.html')
 
-    return render(request, 'reset_password.html')
+    return render(request, 'password_reset.html')
 
 """
     Function to display profile  

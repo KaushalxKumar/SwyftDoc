@@ -40,7 +40,9 @@ body {
 /* Vertically align the input fields */
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="password1"],
+.form-group input[type="password2"]{
     width: 100%; /* Make the input fields take up the full width of their container */
     box-sizing: border-box; /* Include padding and border in the width */
     margin-bottom: 10px; /* Add spacing between input fields */
