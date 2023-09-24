@@ -84,7 +84,7 @@ def send_verify_email(request):
 
     send_mail(
         'SwyftDoc Email Verification',
-        f'Your account verification token is {email_url}',
+        f'Click The Following Link to Verify Your Account: {email_url}',
         FROM_EMAIL,
         [email],
     )
@@ -125,7 +125,7 @@ def forgot_password(request):
 
         send_mail(
             'SwyftDoc Password Reset',
-            f'Click here to reset your password {email_url}',
+            f'Click The Following Link to Reset Your Password: {email_url}',
             FROM_EMAIL,
             [email],
         )
