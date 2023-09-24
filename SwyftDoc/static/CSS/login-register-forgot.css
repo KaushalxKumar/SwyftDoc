@@ -1,0 +1,47 @@
+body {
+    background-color: #5228F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin-top: 0;
+}
+
+.container {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    width: 400px;
+    height: 450px;
+    /*margin: 0 auto;*/
+}
+
+.button-link {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px; /* Adjust padding for button size */
+    background-color: #5228F5; /* Button background color */
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline for link */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Add a pointer cursor */
+}
+
+
+/* Left-align the labels */
+.form-group label {
+    display: block; /* Make labels block-level to stack them vertically */
+    text-align: left; /* Left-align the text */
+}
+
+/* Vertically align the input fields */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%; /* Make the input fields take up the full width of their container */
+    box-sizing: border-box; /* Include padding and border in the width */
+    margin-bottom: 10px; /* Add spacing between input fields */
+}
