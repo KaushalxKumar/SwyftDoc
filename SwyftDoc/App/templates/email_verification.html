@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Verification</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/email-verification.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <a href="{% url 'index' %}" class="logo">
+            <img src="{% static 'Images/logo.png' %}" alt="Logo">
+        </a>
+        <h1>Email Verification {{ message }}</h1>
+        <a href="{% url 'profile' %}" class="button-link">Profile</a>
+    </div>
+</body>
+
+</html>
+

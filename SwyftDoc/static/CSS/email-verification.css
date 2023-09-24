@@ -1,0 +1,43 @@
+body {
+    background-color: #5228F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    margin-top: 0;
+}
+
+.container {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    width: 400px;
+    height: 250px;
+    margin: 0 auto;
+}
+.logo img {
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #000;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding for button size */
+    background-color: #5228F5; /* Button background color */
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline for link */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Add a pointer cursor */
+}
+
+/* Style the button on hover */
+.button-link:hover {
+    background-color: #381EC2; /* Change background color on hover */
+}

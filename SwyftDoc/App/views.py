@@ -104,9 +104,9 @@ def verify_email(request, token):
     if request.user.token == token:
         request.user.verified = True
         request.user.save()
-        return render(request, 'email_verification_success.html')
+        return render(request, 'email_verification.html', {'message': 'Successful'})
 
-    return render(request, 'email_verification_failed.html')
+    return render(request, 'email_verification.html', {'message': 'Failed'})
 
 
 """
