@@ -1,0 +1,49 @@
+.profile-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-container h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+
+.profile-container strong {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.profile-info p {
+    font-size: 20px;
+    color: #333;
+    margin-top: 10px;
+}
+
+.verified-image {
+    width: 40px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding for button size */
+    background-color: #5228F5; /* Button background color */
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline for link */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Add a pointer cursor */
+}
+
+/* Style the button on hover */
+.button-link:hover {
+    background-color: #381EC2; /* Change background color on hover */
+}
+
+

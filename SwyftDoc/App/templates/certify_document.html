@@ -1,14 +1,38 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block css %}
+    rel="stylesheet" type="text/css" href="{% static 'CSS/certify-verify.css' %}"
+{% endblock %}
+
 {% block title %}
     Certify
 {% endblock %}
 
 {% block content %}
-    <h1>SwyftDoc Certification</h1>
-    <form action="/certify_document" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
+    <div class="container-certify-verify">
+        <h1>CERTIFY DOCUMENT </h1>
+        <form action="/certify_document" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="file-upload" class="custom-file-upload">
+                <i class="fas fa-cloud-upload-alt"></i> Choose File
+            </label>
+            <input id="file-upload" type="file" name="file" onchange="updateFileName(this)">
+            <input type="text" id="file-name" readonly placeholder="No File Selected">
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+
+    <script>
+        // Function to update the displayed file name when a file is selected
+        function updateFileName(input) {
+            const fileNameDisplay = document.getElementById('file-name');
+            if (input.files.length > 0) {
+                fileNameDisplay.value = input.files[0].name;
+            } else {
+                fileNameDisplay.value = 'No file selected';
+            }
+        }
+    </script>
 {% endblock %}

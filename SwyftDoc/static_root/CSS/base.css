@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    min-height: 50vh;
 }
 
 #bg{
@@ -12,17 +11,6 @@ body {
 header {
     padding: 40px 0;
     width: 100%;
-}
-
-footer {
-    color: #fff;
-    padding: 350px;
-    text-align: center;
-    margin-top: auto;
-}
-
-footer h2 {
-    font-size: 40px;
 }
 
 .container {
