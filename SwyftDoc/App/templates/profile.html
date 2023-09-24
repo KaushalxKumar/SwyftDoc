@@ -20,13 +20,33 @@
             <p>{{ request.user.email }}</p>
         </div>
         <div class="verified-badge">
-            <p>{% if request.user.verified %}
+            {% if request.user.verified %}
                 <p><strong>Verified</strong></p>
                 <img src="{% static 'Images/verified.png' %}" alt="verified" class="verified-image">
             {% else %}
-                <a href="{% url 'send_verify_email' %}" class="button-link">Verify Now</a>
+                <a href="{% url 'send_verify_email' %}" id="verify-button" class="verify-button">Verify Now</a>
             {% endif %}
-            </p>
         </div>
     </div>
+
+    <div id="popup" class="popup">
+        Email Sent, Please Check Your Inbox
+    </div>
+
+    <script>
+        // Define a function to handle the button click event
+        function handleVerifyButtonClick() {
+            const popup = document.getElementById("popup");
+            popup.style.display = "block";
+            setTimeout(function() {
+                popup.style.display = "none";
+            }, 10000); // Hide the popup after 10 seconds
+        }
+
+        // Attach the function to the button's click event
+        const verifyButton = document.querySelector(".verify-button");
+        verifyButton.addEventListener("click", handleVerifyButtonClick);
+    </script>
+
 {% endblock %}
+

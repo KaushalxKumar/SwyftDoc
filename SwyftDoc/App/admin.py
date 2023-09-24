@@ -17,10 +17,14 @@ class CustomUserAdmin(UserAdmin):
                 'fields': (
                     'verified',
                     'token',
+                    'public_key',
+                    'private_key',
                 )
             }
         )
     )
+
+    readonly_fields = ('public_key', 'private_key',)
 
 
 admin.site.register(Person, CustomUserAdmin)

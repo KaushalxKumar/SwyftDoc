@@ -24,6 +24,8 @@ from Interactions import certify, verify
     Function to login user 
 """
 def login_user(request):
+    context = {}
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -34,9 +36,8 @@ def login_user(request):
             login(request, user)
             return redirect('index')
         else:
-            print("Error")
+            context['message'] = "Invalid Credentials, Try Again"
 
-    context = {}
     return render(request, 'login.html', context)
 
 
@@ -44,6 +45,8 @@ def login_user(request):
     Function to register user 
 """
 def register_user(request):
+    context = {'form': CreateUserForm()}
+
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
 
@@ -54,13 +57,8 @@ def register_user(request):
             return redirect('index')
 
         else:
-            # Form has errors
-            print(form.errors)
+            context['message'] = "Invalid Credentials, Try Again"
 
-    else:
-        form = CreateUserForm()
-
-    context = {'form': form}
     return render(request, 'register.html', context)
 
 
@@ -90,9 +88,8 @@ def send_verify_email(request):
         FROM_EMAIL,
         [email],
     )
-    print("Email Sent " + email)
 
-    return HttpResponse("Email Sent to: " + email + " Token: " + token)
+    return render(request, 'profile.html')
 
 
 """
@@ -120,7 +117,7 @@ def forgot_password(request):
             user = Person.objects.get(email=email)
 
         except Exception as e:
-            return HttpResponse("Email is not linked to a valid account")
+            return render(request, 'forgot_password.html', {'failed': 'Email Is Not Registered on SwyftDoc'})
 
         token = user.token
         url = reverse('reset_password', kwargs={'token': token})
@@ -133,7 +130,7 @@ def forgot_password(request):
             [email],
         )
 
-        return HttpResponse("Password Reset Email Sent")
+        return render(request, 'forgot_password.html', {'success': 'Password Reset Link Sent to Email'})
 
     return render(request, 'forgot_password.html')
 
@@ -148,14 +145,14 @@ def reset_password(request, token):
         password2 = request.POST.get('password2')
 
         if password1 != password2:
-            # TO DO: Display Error Message
-            pass
+            return render(request, 'password_reset.html', {'message': 'Passwords Do Not Match'})
 
         user.set_password(password1)
         user.save()
         return render(request, 'password_reset_success.html')
 
     return render(request, 'password_reset.html')
+
 
 """
     Function to display profile  
@@ -185,7 +182,7 @@ def certify_document(request):
 
         # Check if the uploaded file is a PDF
         if not uploaded_file.name.endswith('.pdf'):
-            return HttpResponse('Please upload a PDF file.')
+            return render(request, 'certify_document.html', {'file': 'Please Upload PDF Only'})
 
         # Open the uploaded PDF file
         pdf = PdfReader(uploaded_file)
@@ -213,12 +210,15 @@ def certify_document(request):
 
         # Store on the blockchain
         try:
-            certify.certify_document(signature, public_key.public_bytes_raw(), hashed_text)
-            response = 'Document Certified by ' + user.username
+            transaction_hash = certify.certify_document(signature, public_key.public_bytes_raw(), hashed_text)
+            response = 'Document Certified, Transaction Hash: ' + transaction_hash
         except Exception as e:
             response = 'Certification Error'
 
-        return HttpResponse(response)
+        return render(request, 'certify_document.html', {'message': response})
+
+    else:
+        return render(request, 'certify_document.html', {'file': 'Please Select a PDF'})
 
 
 """
@@ -234,7 +234,7 @@ def verify_document(request):
 
         # Check if the uploaded file is a PDF
         if not uploaded_file.name.endswith('.pdf'):
-            return HttpResponse('Please upload a PDF file.')
+            return render(request, 'verify_document.html', {'file': 'Please Upload PDF Only'})
 
         # Open the uploaded PDF file
         pdf = PdfReader(uploaded_file)
@@ -257,7 +257,7 @@ def verify_document(request):
             owner, signature, public_key = verify.verify_document(hashed_text)
 
         except Exception as e:
-            return HttpResponse('Verification Error')
+            return render(request, 'verify_document.html', {'message': 'Verification Error'})
 
         public_key = ed25519.Ed25519PublicKey.from_public_bytes(public_key)
 
@@ -274,4 +274,7 @@ def verify_document(request):
         )
         certifier = Person.objects.get(public_key=public_key_bytes)
 
-        return HttpResponse(f'Verification Result: {verification_result}\n Ceritfier: {certifier}\n Verified: {certifier.verified}')
+        return render(request, 'verify_document.html', {'message': f'Verification Result: {verification_result}\n Ceritfier: {certifier}\n Verified: {certifier.verified}'})
+
+    else:
+        return render(request, 'verify_document.html', {'file': 'Please Select a PDF'})

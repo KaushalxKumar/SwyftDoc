@@ -23,4 +23,4 @@ def certify_document(signature, public_key, document_hash):
     w3.eth.wait_for_transaction_receipt(transaction_hash)
 
     print(f"Transaction hash: {transaction_hash.hex()}")
-
+    return transaction_hash.hex()
