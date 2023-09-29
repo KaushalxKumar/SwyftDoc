@@ -1,5 +1,8 @@
 from web3 import Web3
 
+"""
+    Function to verify document 
+"""
 def verify_document(document_hash):
     ganache_url = "http://127.0.0.1:7545"  # Default Ganache URL
     w3 = Web3(Web3.HTTPProvider(ganache_url))

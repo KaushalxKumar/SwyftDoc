@@ -17,12 +17,12 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 20%; /* Adjust the width as needed */
-    margin: 20px auto; /* Center the container horizontally */
-    max-width: 400px; /* Adjust the maximum width as needed */
+    width: 20%;
+    margin: 20px auto;
+    max-width: 400px;
 }
 
-/* Style the heading */
+
 h1 {
     font-size: 35px;
     margin-bottom: 20px;
@@ -32,10 +32,8 @@ h1 {
 p {
     font-size: 25px;
     margin-bottom: 20px;
-
 }
 
-/* Style the form inputs and submit button */
 form {
     background-color: #fff;
     padding: 20px;
@@ -83,7 +81,6 @@ input[type="submit"]:hover {
     background-color: #381EC2;
 }
 
-/*Actual file upload*/
 #file-upload {
     display: none;
 }
@@ -94,13 +91,13 @@ input[type="submit"]:hover {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 40%; /* Take up the full width of the form */
+    width: 40%;
     background-color: #fff;
     color: #333;
     cursor: not-allowed;
 }
 
 .verified-image {
-    width: 40px; /* Set the desired width */
-    height: auto; /* Maintain aspect ratio */
+    width: 40px;
+    height: auto;
 }

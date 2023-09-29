@@ -26,24 +26,23 @@
 }
 
 .verified-image {
-    width: 40px; /* Set the desired width */
-    height: auto; /* Maintain aspect ratio */
+    width: 40px;
+    height: auto;
 }
 
 .verify-button {
     display: inline-block;
-    padding: 10px 20px; /* Adjust padding for button size */
-    background-color: #5228F5; /* Button background color */
-    color: #fff; /* Text color */
-    text-decoration: none; /* Remove underline for link */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Add rounded corners */
-    cursor: pointer; /* Add a pointer cursor */
+    padding: 10px 20px;
+    background-color: #5228F5;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Style the button on hover */
 .verify-button:hover {
-    background-color: #381EC2; /* Change background color on hover */
+    background-color: #381EC2;
 }
 
 .popup {

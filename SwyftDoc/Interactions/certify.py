@@ -1,5 +1,8 @@
 from web3 import Web3
 
+"""
+    Function to certify document 
+"""
 def certify_document(signature, public_key, document_hash):
     ganache_url = "http://127.0.0.1:7545"  # Default Ganache URL
     w3 = Web3(Web3.HTTPProvider(ganache_url))
@@ -22,5 +25,4 @@ def certify_document(signature, public_key, document_hash):
     # Wait for the transaction to be mined
     w3.eth.wait_for_transaction_receipt(transaction_hash)
 
-    print(f"Transaction hash: {transaction_hash.hex()}")
     return transaction_hash.hex()

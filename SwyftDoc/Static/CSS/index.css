@@ -3,7 +3,6 @@ body, h1, h2, p {
     padding: 0;
 }
 
-/* Style the main content */
 main {
     padding: 20px;
 }
@@ -23,7 +22,7 @@ main {
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px;
 }
 
 h1 {

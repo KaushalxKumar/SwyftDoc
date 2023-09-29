@@ -7,7 +7,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
-/* Style the header and container */
+
 header {
     padding: 40px 0;
     width: 100%;
@@ -20,7 +20,6 @@ header {
     background-color: #fff;
 }
 
-/* Style the navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -28,7 +27,6 @@ header {
     padding: 0 20px;
 }
 
-/* Style the left-side elements */
 .left-side {
     display: flex;
     align-items: center;
@@ -48,7 +46,6 @@ header {
     font-size: 20px;
 }
 
-/* Style the right-side elements */
 .right-side {
     display: flex;
     align-items: center;
@@ -71,7 +68,6 @@ header {
     font-size: 20px;
 }
 
-/* Center the "Profile" link within its smaller rounded rectangle */
 .profile-link {
     text-decoration: none;
     color: #fff;
@@ -81,7 +77,6 @@ header {
     height: 100%;
 }
 
-/* Hover effect for links */
 .certify:hover,
 .verify:hover,
 .profile-link:hover,

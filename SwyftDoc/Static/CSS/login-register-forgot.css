@@ -14,36 +14,32 @@ body {
     text-align: center;
     width: 400px;
     height: 450px;
-    /*margin: 0 auto;*/
 }
 
 .button-link {
     display: inline-block;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 10px 20px; /* Adjust padding for button size */
-    background-color: #5228F5; /* Button background color */
-    color: #fff; /* Text color */
-    text-decoration: none; /* Remove underline for link */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Add rounded corners */
-    cursor: pointer; /* Add a pointer cursor */
+    padding: 10px 20px;
+    background-color: #5228F5;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-
-/* Left-align the labels */
 .form-group label {
-    display: block; /* Make labels block-level to stack them vertically */
-    text-align: left; /* Left-align the text */
+    display: block;
+    text-align: left;
 }
 
-/* Vertically align the input fields */
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="password"],
 .form-group input[type="password1"],
 .form-group input[type="password2"]{
-    width: 100%; /* Make the input fields take up the full width of their container */
-    box-sizing: border-box; /* Include padding and border in the width */
-    margin-bottom: 10px; /* Add spacing between input fields */
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
 }
