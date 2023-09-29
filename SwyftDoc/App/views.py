@@ -209,13 +209,14 @@ def certify_document(request):
         signature = private_key.sign(hashed_text)
 
         # Store on the blockchain
+        context = {'is_post': True}
         try:
             transaction_hash = certify.certify_document(signature, public_key.public_bytes_raw(), hashed_text)
-            response = 'Document Certified, Transaction Hash: ' + transaction_hash
+            context['hash'] = transaction_hash
         except Exception as e:
-            response = 'Certification Error'
+            context['error'] = 'Document Previously Certified'
 
-        return render(request, 'certify_document.html', {'message': response})
+        return render(request, 'certify_document.html', context)
 
     else:
         return render(request, 'certify_document.html', {'file': 'Please Select a PDF'})
@@ -257,15 +258,15 @@ def verify_document(request):
             owner, signature, public_key = verify.verify_document(hashed_text)
 
         except Exception as e:
-            return render(request, 'verify_document.html', {'message': 'Verification Error'})
+            return render(request, 'verify_document.html', {'message': 'Document Not Certified'})
 
         public_key = ed25519.Ed25519PublicKey.from_public_bytes(public_key)
 
         try:
             public_key.verify(signature, hashed_text)
-            verification_result = 'Signature verified: Hashes match.'
+            verification_result = 'Signature Verified | Hashes Match'
         except Exception as e:
-            verification_result = 'Signature verification failed: Hashes do not match.'
+            verification_result = 'Signature Not Verified | Hashes Do Not Match'
 
         # Retrieve Certifier
         public_key_bytes = public_key.public_bytes(
@@ -274,7 +275,13 @@ def verify_document(request):
         )
         certifier = Person.objects.get(public_key=public_key_bytes)
 
-        return render(request, 'verify_document.html', {'message': f'Verification Result: {verification_result}\n Ceritfier: {certifier}\n Verified: {certifier.verified}'})
+        context = {
+            'result': verification_result,
+            'certifier': certifier,
+            'verified': certifier.verified,
+            'is_post': True
+        }
+        return render(request, 'verify_document.html', context)
 
     else:
         return render(request, 'verify_document.html', {'file': 'Please Select a PDF'})

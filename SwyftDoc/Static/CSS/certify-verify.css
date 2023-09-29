@@ -7,11 +7,32 @@
     margin-top: 50px;
 }
 
+.container-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 20%; /* Adjust the width as needed */
+    margin: 20px auto; /* Center the container horizontally */
+    max-width: 400px; /* Adjust the maximum width as needed */
+}
+
 /* Style the heading */
 h1 {
     font-size: 35px;
     margin-bottom: 20px;
     color: #fff;
+}
+
+p {
+    font-size: 25px;
+    margin-bottom: 20px;
+
 }
 
 /* Style the form inputs and submit button */
@@ -77,4 +98,9 @@ input[type="submit"]:hover {
     background-color: #fff;
     color: #333;
     cursor: not-allowed;
+}
+
+.verified-image {
+    width: 40px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
 }

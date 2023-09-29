@@ -21,11 +21,23 @@
             <input id="file-upload" type="file" name="file" onchange="updateFileName(this)">
             <input type="text" id="file-name" readonly placeholder="No File Selected">
             <input type="submit" value="Upload">
-        </form>
 
-        <h3 style="color: red;">{{ file }}</h3>
-        <h3 style="color: white;">{{ message }}</h3>
+            <p style="color: red;">{{ file }}</p>
+            <p style="color: red;">{{ message }}</p>
+        </form>
     </div>
+
+    {% if is_post%}
+        {% if not message and not file %}
+            <div class="container-result">
+                <p style="color: green;">{{ result }}</p>
+                <p>Certifier: {{ certifier }}</p>
+                {% if verified %}
+                    <img src="{% static 'Images/verified.png' %}" alt="verified" class="verified-image">
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
 
     <script>
         // Function to update the displayed file name when a file is selected
