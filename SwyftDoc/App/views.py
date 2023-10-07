@@ -169,8 +169,264 @@ def index(request):
     return render(request, 'index.html')
 
 
+# """
+#     Function to certify document
+# """
+# @login_required(login_url='login')
+# def certify_document(request):
+#     if request.method == 'GET':
+#         return render(request, 'certify_document.html')
+#
+#     if request.method == 'POST' and request.FILES.get('file'):
+#         uploaded_file = request.FILES['file']
+#
+#         # Check if the uploaded file is a PDF
+#         if not uploaded_file.name.endswith('.pdf'):
+#             return render(request, 'certify_document.html', {'file': 'Please Upload PDF Only'})
+#
+#         # Open the uploaded PDF file
+#         pdf = PdfReader(uploaded_file)
+#
+#         # Initialize an empty string to store the extracted text
+#         text = ''
+#
+#         # Iterate through each page of the PDF
+#         for page_num in range(len(pdf.pages)):
+#             page = pdf.pages[page_num]
+#             text += page.extract_text()
+#
+#         # Hash the extracted text using SHA-256
+#         sha256_hash = hashlib.sha256()
+#         sha256_hash.update(text.encode('utf-8'))
+#         hashed_text = sha256_hash.digest()
+#
+#         # Retrieve users private key and public key
+#         user = request.user
+#         private_key = user.get_private_key()
+#         public_key = user.get_public_key()
+#
+#         # Sign the hashed text with the private key
+#         signature = private_key.sign(hashed_text)
+#
+#         # Store on the blockchain
+#         context = {'is_post': True}
+#         try:
+#             transaction_hash = certify.certify_document(signature, public_key.public_bytes_raw(), hashed_text)
+#             context['hash'] = transaction_hash
+#         except Exception as e:
+#             context['error'] = 'Document Previously Certified'
+#
+#         return render(request, 'certify_document.html', context)
+#
+#     else:
+#         return render(request, 'certify_document.html', {'file': 'Please Select a PDF'})
+#
+#
+# """
+#     Function to verify document
+# """
+# @login_required(login_url='login')
+# def verify_document(request):
+#     if request.method == 'GET':
+#         return render(request, 'verify_document.html')
+#
+#     if request.method == 'POST' and request.FILES.get('file'):
+#         uploaded_file = request.FILES['file']
+#
+#         # Check if the uploaded file is a PDF
+#         if not uploaded_file.name.endswith('.pdf'):
+#             return render(request, 'verify_document.html', {'file': 'Please Upload PDF Only'})
+#
+#         # Open the uploaded PDF file
+#         pdf = PdfReader(uploaded_file)
+#
+#         # Initialize an empty string to store the extracted text
+#         text = ''
+#
+#         # Iterate through each page of the PDF
+#         for page_num in range(len(pdf.pages)):
+#             page = pdf.pages[page_num]
+#             text += page.extract_text()
+#
+#         # Hash the extracted text using SHA-256
+#         sha256_hash = hashlib.sha256()
+#         sha256_hash.update(text.encode('utf-8'))
+#         hashed_text = sha256_hash.digest()
+#
+#         # Retrieve from blockchain
+#         try:
+#             owner, signature, public_key = verify.verify_document(hashed_text)
+#
+#         except Exception as e:
+#             return render(request, 'verify_document.html', {'message': 'Document Not Certified'})
+#
+#         public_key = ed25519.Ed25519PublicKey.from_public_bytes(public_key)
+#
+#         try:
+#             public_key.verify(signature, hashed_text)
+#             verification_result = 'Signature Verified | Hashes Match'
+#         except Exception as e:
+#             verification_result = 'Signature Not Verified | Hashes Do Not Match'
+#
+#         # Retrieve Certifier
+#         public_key_bytes = public_key.public_bytes(
+#             encoding=serialization.Encoding.PEM,
+#             format=serialization.PublicFormat.SubjectPublicKeyInfo
+#         )
+#         certifier = Person.objects.get(public_key=public_key_bytes)
+#
+#         context = {
+#             'result': verification_result,
+#             'certifier': certifier,
+#             'verified': certifier.verified,
+#             'is_post': True
+#         }
+#         return render(request, 'verify_document.html', context)
+#
+#     else:
+#         return render(request, 'verify_document.html', {'file': 'Please Select a PDF'})
+
+#
+#####################################################################################################################
+# #####################################################################################################################
+# #####################################################################################################################
+#
+# #######
+# #               SPHINCS+ IMPLEMENTATION
+# #######
+# from DSA.package.sphincs import Sphincs
+#
+# """
+#     Function to certify document
+# """
+# @login_required(login_url='login')
+# def certify_document(request):
+#     if request.method == 'GET':
+#         return render(request, 'certify_document.html')
+#
+#     if request.method == 'POST' and request.FILES.get('file'):
+#         uploaded_file = request.FILES['file']
+#
+#         # Check if the uploaded file is a PDF
+#         if not uploaded_file.name.endswith('.pdf'):
+#             return render(request, 'certify_document.html', {'file': 'Please Upload PDF Only'})
+#
+#         # Open the uploaded PDF file
+#         pdf = PdfReader(uploaded_file)
+#
+#         # Initialize an empty string to store the extracted text
+#         text = ''
+#
+#         # Iterate through each page of the PDF
+#         for page_num in range(len(pdf.pages)):
+#             page = pdf.pages[page_num]
+#             text += page.extract_text()
+#
+#         # Hash the extracted text using SHA-256
+#         sha256_hash = hashlib.sha256()
+#         sha256_hash.update(text.encode('utf-8'))
+#         hashed_text = sha256_hash.digest()
+#
+#         # Retrieve users private key and public key
+#         user = request.user
+#         private_key = user.get_private_key()
+#         public_key = user.get_public_key()
+#
+#         # Sign the hashed text with the private key
+#         sphincs = Sphincs()
+#         signature = sphincs.sign(hashed_text, private_key)
+#
+#         print(signature)
+#
+#         return HttpResponse(sphincs.verify(signature, hashed_text, public_key))
+#
+#         # Store on the blockchain
+#         context = {'is_post': True}
+#         try:
+#             transaction_hash = certify.certify_document(signature, public_key, hashed_text)
+#             context['hash'] = transaction_hash
+#         except Exception as e:
+#             context['error'] = 'Document Previously Certified'
+#
+#         return render(request, 'certify_document.html', context)
+#
+#     else:
+#         return render(request, 'certify_document.html', {'file': 'Please Select a PDF'})
+#
+#
+# """
+#     Function to verify document
+# """
+# @login_required(login_url='login')
+# def verify_document(request):
+#     if request.method == 'GET':
+#         return render(request, 'verify_document.html')
+#
+#     if request.method == 'POST' and request.FILES.get('file'):
+#         uploaded_file = request.FILES['file']
+#
+#         # Check if the uploaded file is a PDF
+#         if not uploaded_file.name.endswith('.pdf'):
+#             return render(request, 'verify_document.html', {'file': 'Please Upload PDF Only'})
+#
+#         # Open the uploaded PDF file
+#         pdf = PdfReader(uploaded_file)
+#
+#         # Initialize an empty string to store the extracted text
+#         text = ''
+#
+#         # Iterate through each page of the PDF
+#         for page_num in range(len(pdf.pages)):
+#             page = pdf.pages[page_num]
+#             text += page.extract_text()
+#
+#         # Hash the extracted text using SHA-256
+#         sha256_hash = hashlib.sha256()
+#         sha256_hash.update(text.encode('utf-8'))
+#         hashed_text = sha256_hash.digest()
+#
+#         # Retrieve from blockchain
+#         try:
+#             owner, signature, public_key = verify.verify_document(hashed_text)
+#
+#         except Exception as e:
+#             return render(request, 'verify_document.html', {'message': 'Document Not Certified'})
+#
+#
+#         sphincs = Sphincs()
+#         result = sphincs.verify(signature, hashed_text, public_key)
+#
+#         if result:
+#             verification_result = 'Signature Verified | Hashes Match'
+#         else:
+#             verification_result = 'Signature Not Verified | Hashes Do Not Match'
+#
+#         # Retrieve Certifier
+#         certifier = Person.objects.get(public_key=public_key)
+#
+#         context = {
+#             'result': verification_result,
+#             'certifier': certifier,
+#             'verified': certifier.verified,
+#             'is_post': True
+#         }
+#         return render(request, 'verify_document.html', context)
+#
+#     else:
+#         return render(request, 'verify_document.html', {'file': 'Please Select a PDF'})
+
+
+#####################################################################################################################
+#####################################################################################################################
+#####################################################################################################################
+
+#######
+#               FALCON IMPLEMENTATION
+#######
+from Falcon.falcon import *
+import traceback
 """
-    Function to certify document 
+    Function to certify document
 """
 @login_required(login_url='login')
 def certify_document(request):
@@ -205,16 +461,22 @@ def certify_document(request):
         private_key = user.get_private_key()
         public_key = user.get_public_key()
 
+        private_key_object = SecretKey.from_bytes(private_key)
+
         # Sign the hashed text with the private key
-        signature = private_key.sign(hashed_text)
+        signature = private_key_object.sign(hashed_text)
+
+        # public_key_object = PublicKey.from_bytes(public_key)
+        # return HttpResponse(public_key_object.verify(hashed_text, signature))
 
         # Store on the blockchain
         context = {'is_post': True}
         try:
-            transaction_hash = certify.certify_document(signature, public_key.public_bytes_raw(), hashed_text)
+            transaction_hash = certify.certify_document(signature, public_key, hashed_text)
             context['hash'] = transaction_hash
         except Exception as e:
             context['error'] = 'Document Previously Certified'
+            traceback.print_exc()
 
         return render(request, 'certify_document.html', context)
 
@@ -223,7 +485,7 @@ def certify_document(request):
 
 
 """
-    Function to verify document 
+    Function to verify document
 """
 @login_required(login_url='login')
 def verify_document(request):
@@ -260,20 +522,16 @@ def verify_document(request):
         except Exception as e:
             return render(request, 'verify_document.html', {'message': 'Document Not Certified'})
 
-        public_key = ed25519.Ed25519PublicKey.from_public_bytes(public_key)
+        public_key_object = PublicKey.from_bytes(public_key)
+        result = public_key_object.verify(hashed_text, signature)
 
-        try:
-            public_key.verify(signature, hashed_text)
+        if result:
             verification_result = 'Signature Verified | Hashes Match'
-        except Exception as e:
+        else:
             verification_result = 'Signature Not Verified | Hashes Do Not Match'
 
         # Retrieve Certifier
-        public_key_bytes = public_key.public_bytes(
-            encoding=serialization.Encoding.PEM,
-            format=serialization.PublicFormat.SubjectPublicKeyInfo
-        )
-        certifier = Person.objects.get(public_key=public_key_bytes)
+        certifier = Person.objects.get(public_key=public_key)
 
         context = {
             'result': verification_result,
