@@ -210,16 +210,13 @@ def certify_document(request):
         # Sign the hashed text with the private key
         signature = private_key_object.sign(hashed_text)
 
-        # public_key_object = PublicKey.from_bytes(public_key)
-        # return HttpResponse(public_key_object.verify(hashed_text, signature))
-
         # Store on the blockchain
         context = {'is_post': True}
         try:
             transaction_hash = certify.certify_document(signature, public_key, hashed_text)
             context['hash'] = transaction_hash
         except Exception as e:
-            context['error'] = 'Document Previously Certified'
+            context['error'] = 'Certification Error'
             traceback.print_exc()
 
         return render(request, 'certify_document.html', context)
@@ -264,7 +261,7 @@ def verify_document(request):
             owner, signature, public_key = verify.verify_document(hashed_text)
 
         except Exception as e:
-            return render(request, 'verify_document.html', {'message': 'Document Not Certified'})
+            return render(request, 'verify_document.html', {'message': 'Verification Error'})
 
         public_key_object = PublicKey.from_bytes(public_key)
         result = public_key_object.verify(hashed_text, signature)

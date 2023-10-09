@@ -28,11 +28,13 @@
     </div>
 
     {% if is_post%}
-        <div class="container-result">
-            <p style="color: green;"> Document Certified </p>
-            <p> Transaction Hash:</p>
-            <p style="font-size: 13px;">{{ hash }}</p>
-        </div>
+        {% if not error %}
+            <div class="container-result">
+                <p style="color: green;"> Document Certified </p>
+                <p> Transaction Hash:</p>
+                <p style="font-size: 13px;">{{ hash }}</p>
+            </div>
+            {% endif %}
     {% endif %}
 
     <script>
