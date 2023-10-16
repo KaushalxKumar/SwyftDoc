@@ -215,6 +215,12 @@ def certify_document(request):
         try:
             transaction_hash = certify.certify_document(signature, public_key, hashed_text)
             context['hash'] = transaction_hash
+            send_mail(
+                'SwyftDoc Email Verification',
+                f'Document Successfully Ceritfied\nTransaction Hash: ' + transaction_hash,
+                FROM_EMAIL,
+                [request.user.email],
+            )
         except Exception as e:
             context['error'] = 'Certification Error'
             traceback.print_exc()
