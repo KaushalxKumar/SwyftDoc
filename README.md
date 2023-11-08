@@ -18,13 +18,13 @@ Ensure the following applications is installed on your local machine.
 
 ### Clone Project
 ```angular2html
-$ git clone https://github.com/KaushalxKumar/SwyftDoc.git
+git clone https://github.com/KaushalxKumar/SwyftDoc.git
 ```
 
 ### 1. Install Django and Python Modules 
 Navigate into the inner "SwyftDoc" folder (SwyftDoc\SwyftDoc).
 ```angular2html
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 2. Ganache Blockchain
@@ -37,7 +37,7 @@ Navigate into the "Truffle" folder (SwyftDoc\Truffle).
 Ensure "Host" and "Port" in the "truffle-config.js" file is the same as your Ganache Blockchain.
 
 ```angular2html
-$ truffle migrate --network development
+truffle migrate --network development
 ```
 
 ### 4. SendGrid 
