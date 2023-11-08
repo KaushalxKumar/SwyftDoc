@@ -51,6 +51,7 @@ Navigate into the inner "SwyftDoc" folder (SwyftDoc\SwyftDoc).
 1. Open up "credentials.py" and replace the required fields with your own credentials.
 
 If not using the default Ganache URL.
+
 2. Change "ganache_url" in both "certify.py" and "verify.py" files in the Interactions folder (SwyftDoc\SwyftDoc\Interactions) to the URL of your Ganache blockchain.
 
 ### 6. Run
