@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 ### 2. Ganache Blockchain
 1. Open up the ganache application.
-2. Create new workspace and chose and appropriate name.
+2. Create new workspace and chose an appropriate name.
 3. Start Ganache blockchain.
 
 ### 3. Deploy Smart Contract
@@ -42,7 +42,7 @@ truffle migrate --network development
 
 ### 4. SendGrid 
 1. Create [SendGrid](https://sendgrid.com/) account. 
-2. In Settings > API Keys. Create a new API save the key itself.
+2. In Settings > API Keys. Create a new API and save the key itself.
 3. In Settings > Sender Authentication. Verify the ownership of a single email address that you own.
  
 ### 5. Input Credentials
